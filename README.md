@@ -1,5 +1,10 @@
 # beachwatch 🏖️
 
+<p align="center">
+    <a href="https://pypi.org/project/beachwatch/"><img src="https://img.shields.io/pypi/pyversions/beachwatch" alt="versions"></a>
+    <a href="https://github.com/ben-n93/beachwatch/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/beachwatch" alt="License"></a>
+</p>
+
 `beachwatch` is a Python wrapper for the NSW Government's [Beachwatch API](https://beachwatch.nsw.gov.au/waterMonitoring/beachwatchDataFeeds).
 
 In their own words:
@@ -19,9 +24,9 @@ pip install beachwatch
 There is only one function - `get_beaches()` function, which returns `Beach` objects:
 
 ```py
->>> get_beach() # Returns a list of all Beach objects.
->>> get_beach("Bondi Beach") # Returns a list with the specified beach.
->>> get_beach("Bondi Beach", "Whale Beach") # Returns a list with the specifies beaches.
+>>> get_beaches() # Returns a list of all Beach objects.
+>>> get_beaches("Bondi Beach") # Returns a list with the specified beach.
+>>> get_beaches("Bondi Beach", "Whale Beach") # Returns a list with the specifies beaches.
 ```
 
 The `Beach` object:
