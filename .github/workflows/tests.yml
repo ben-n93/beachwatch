@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -U pip
-          pip install -U requests requests-mock pytest python-dateutil
+          pip install -U requests requests-mock pytest python-dateutil coverage
       - name: Tests
         run: |
           coverage run -m tests.test_beachwatch
