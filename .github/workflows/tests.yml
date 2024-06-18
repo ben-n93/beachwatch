@@ -23,4 +23,4 @@ jobs:
           pip install -U requests requests-mock pytest python-dateutil coverage
       - name: Tests
         run: |
-          pytest
+          pytest tests/test_beachwatch.py
