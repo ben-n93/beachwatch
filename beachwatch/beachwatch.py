@@ -16,7 +16,7 @@ def get_beaches(*names):
 
     Parameters
     ----------
-    *names : tuple, optional
+    *names : tuple of str, optional
             The name or names of NSW beaches.
 
     Returns
@@ -74,7 +74,7 @@ def get_beaches(*names):
             ]
             invalid_beaches = list(set(names) - set(returned_beach_names))
             raise ValueError(
-                f"The following beaches does not exist or does not exist in the Beachsafe database: {invalid_beaches}"
+                f"The following beaches does not exist or does not exist in the Beachwatch database: {invalid_beaches}"
             )
 
         beaches = [create_beach(beach) for beach in data.json()["features"]]
@@ -107,7 +107,7 @@ class Beach:
     latest_result_rating : int
         The latest water quality result, rated from 1 to 4 to indicate
         suitability for swimming.
-    latest_result_observation_timestamp : str
+    latest_result_observation_timestamp : datetime.datetime
          The most recent sampling date.
     geometry : dict
          A GeoJSON feature with the coordinates of the beach.

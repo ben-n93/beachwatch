@@ -38,7 +38,7 @@ class Beach:
     Attributes
     ----------
     identifier : str
-         Unknown but likely a unique ID within the Beachwatch database/dataset.
+         Unknown but likely a unique ID within the Beachwatch database.
     name : str
          The name of the beach.
     pollution_forecast : str
@@ -51,7 +51,7 @@ class Beach:
     latest_result_rating : int
         The latest water quality result, rated from 1 to 4 to indicate
         suitability for swimming.
-    latest_result_observation_timestamp : str
+    latest_result_observation_timestamp : datetime.datetime
          The most recent sampling date.
     geometry : dict
          A GeoJSON feature with the coordinates of the beach.
