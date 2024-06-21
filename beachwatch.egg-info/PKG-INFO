@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: beachwatch
+Version: 0.1.3
+Summary: A Python wrapper for the NSW Government's Beachwatch API.
+Author-email: Ben Nour <hello@ben-nour.com>
+License: MIT License
+        
+        Copyright (c) 2024 Ben
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: homepage, https://github.com/ben-n93/beachwatch
+Project-URL: repository, https://github.com/ben-n93/beachwatch
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests~=2.32.3
+Requires-Dist: python-dateutil~=2.9.0.post0
+
+# beachwatch 🏖️
+
+<p align="center">
+    <a href="https://github.com/ben-n93/beachwatch/actions/workflows/tests.yml/badge.svg"><img src="https://github.com/ben-n93/beachwatch/actions/workflows/tests.yml/badge.svg"           alt="Testing"></a>
+    <a href="https://pypi.org/project/beachwatch/"><img src="https://img.shields.io/pypi/pyversions/beachwatch" alt="versions"></a>
+    <a href="https://github.com/ben-n93/beachwatch/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/beachwatch" alt="License"></a>
+</p>
+
+`beachwatch` is a Python wrapper for the NSW Government's [Beachwatch API](https://beachwatch.nsw.gov.au/waterMonitoring/beachwatchDataFeeds).
+
+In their own words:
+
+*"Beachwatch and our partners monitor water quality at swim sites to ensure that recreational water environments are managed as safely as possible so that as many people as possible can benefit from using the water."*
+
+With this package you can retrieve data about a NSW beach's water pollution forecast, water quality rating, coordinates and more.
+
+## Installation
+
+```
+pip install beachwatch
+```
+
+## Usage
+
+There is only one function - `get_beaches()` function, which returns `Beach` objects:
+
+```py
+>>> get_beaches() # Returns a list of all Beach objects.
+>>> get_beaches("Bondi Beach") # Returns a list with the specified beach.
+>>> get_beaches("Bondi Beach", "Whale Beach") # Returns a list with the specifies beaches.
+```
+
+The `Beach` object:
+``` py
+class Beach:
+    """A NSW beach.
+
+    Attributes
+    ----------
+    identifier : str
+         Unknown but likely a unique ID within the Beachwatch database.
+    name : str
+         The name of the beach.
+    pollution_forecast : str
+         The latest water quality pollution forecast.
+    pollution_forecast_timestamp : datetime.datetime
+         What time the forecast was issued by Beachwatch.
+    latest_result : str
+         A water quality rating based on the number of bacteria (enterococci)
+         in the most recent water sample.
+    latest_result_rating : int
+        The latest water quality result, rated from 1 to 4 to indicate
+        suitability for swimming.
+    latest_result_observation_timestamp : datetime.datetime
+         The most recent sampling date.
+    geometry : dict
+         A GeoJSON feature with the coordinates of the beach.
+    """
+```
+
+Note that the `Beach` object is not meant to be instantiated directly.
+
+### Example
+``` py
+>>> bondi = get_beaches("Bondi Beach")[0]
+>>> bondi.pollution_forecast
+    'Good'
+```
+## Important 
+
+Beachwatch notes on their website that forecasts *"are predictions of water quality only and are not 100% accurate.
+Beachwatch cannot guarantee the accuracy of any of the results or outputs from this model. Any reliance you place on such information is strictly at your own risk."*

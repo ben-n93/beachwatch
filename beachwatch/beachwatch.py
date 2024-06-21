@@ -29,7 +29,7 @@ def get_beaches(*names):
     ValueException
         If the API returns no data for one of the beach names passed to this
         function, which would indicate that the beach does not exist in the
-        Beachwatch records/database.
+        Beachwatch database.
     """
 
     def create_beach(beach):
@@ -61,29 +61,32 @@ def get_beaches(*names):
             ("site_name", name) for name in names
         ]  # In case a user passes multiple beach names.
 
-        data = requests.get(
+        response = requests.get(
             "https://api.beachwatch.nsw.gov.au/public/sites/geojson",
             params=parameters,
             timeout=15,
         )
-        if data.json() == {"type": "FeatureCollection", "features": []} or len(
-            data.json()["features"]
+        response.raise_for_status()
+        if response.json() == {"type": "FeatureCollection", "features": []} or len(
+            response.json()["features"]
         ) != len(names):
             returned_beach_names = [
-                feature["properties"]["siteName"] for feature in data.json()["features"]
+                feature["properties"]["siteName"]
+                for feature in response.json()["features"]
             ]
             invalid_beaches = list(set(names) - set(returned_beach_names))
             raise ValueError(
                 f"The following beaches does not exist or does not exist in the Beachwatch database: {invalid_beaches}"
             )
 
-        beaches = [create_beach(beach) for beach in data.json()["features"]]
+        beaches = [create_beach(beach) for beach in response.json()["features"]]
         return beaches
     # All beaches.
-    data = requests.get(
+    response = requests.get(
         "https://api.beachwatch.nsw.gov.au/public/sites/geojson", timeout=15
     )
-    beaches = [create_beach(beach) for beach in data.json()["features"]]
+    response.raise_for_status()
+    beaches = [create_beach(beach) for beach in response.json()["features"]]
     return beaches
 
 

@@ -5,6 +5,7 @@ Tests for beachwatch.py
 from datetime import datetime
 
 import pytest
+import requests
 
 from beachwatch.beachwatch import get_beaches, Beach
 
@@ -29,6 +30,17 @@ def api_json():
             }
         ],
     }
+
+
+def test_http_error_raises_exception(requests_mock):
+    """Test that an exception is raised if the web API returns
+    a client or server error.
+    """
+    requests_mock.get(
+        "https://api.beachwatch.nsw.gov.au/public/sites/geojson", status_code=400
+    )
+    with pytest.raises(requests.exceptions.HTTPError):
+        get_beaches()
 
 
 def test_nonexistent_beach_name(requests_mock):

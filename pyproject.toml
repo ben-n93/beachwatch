@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "beachwatch"
-version = "0.1.2"
+version = "0.1.3"
 description = "A Python wrapper for the NSW Government's Beachwatch API."
 authors = [
     { name = "Ben Nour", email = "hello@ben-nour.com" }
