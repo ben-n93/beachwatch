@@ -2,6 +2,7 @@
 
 <p align="center">
     <a href="https://github.com/ben-n93/beachwatch/actions/workflows/tests.yml/badge.svg"><img src="https://github.com/ben-n93/beachwatch/actions/workflows/tests.yml/badge.svg"           alt="Testing"></a>
+    <a href="https://codecov.io/gh/ben-n93/beachwatch"><img src="https://codecov.io/gh/ben-n93/beachwatch/graph/badge.svg?token=XUMK0D4J9X"/></a>
     <a href="https://pypi.org/project/beachwatch/"><img src="https://img.shields.io/pypi/pyversions/beachwatch" alt="versions"></a>
     <a href="https://github.com/ben-n93/beachwatch/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/beachwatch" alt="License"></a>
 </p>
