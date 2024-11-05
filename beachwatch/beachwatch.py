@@ -37,19 +37,32 @@ def get_beaches(*names):
 
         properties = beach["properties"]
         geometry = beach["geometry"]
-        pollution_forecast_timestamp = properties["pollutionForecastTimeStamp"]
-        pollution_forecast_timestamp = parser.isoparse(pollution_forecast_timestamp)
-        latest_result_observation_timestamp = properties["latestResultObservationDate"]
-        latest_result_observation_timestamp = parser.isoparse(
-            latest_result_observation_timestamp
+        latestResultRating = properties.get("latestResultRating")
+        try:
+            latestResultRating = int(latestResultRating)
+        except TypeError:
+            pass
+        pollution_forecast_timestamp = properties.get("pollutionForecastTimeStamp")
+        try:
+            pollution_forecast_timestamp = parser.isoparse(pollution_forecast_timestamp)
+        except TypeError:
+            pass
+        latest_result_observation_timestamp = properties.get(
+            "latestResultObservationDate"
         )
+        try:
+            latest_result_observation_timestamp = parser.isoparse(
+                latest_result_observation_timestamp
+            )
+        except TypeError:
+            pass
         beach = Beach(
-            properties["id"],
-            properties["siteName"],
-            properties["pollutionForecast"],
+            properties.get("id"),
+            properties.get("siteName"),
+            properties.get("pollutionForecast"),
             pollution_forecast_timestamp,
-            properties["latestResult"],
-            int(properties["latestResultRating"]),
+            properties.get("latestResult"),
+            latestResultRating,
             latest_result_observation_timestamp,
             geometry,
         )
